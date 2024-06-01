@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Do List</title>
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+
+<div class="header">
+    <h1>~To do list~</h1>
+</div>
+<br>
+
+<div class="container">
+    
+    <div class="profil">
+        <h1>USER</h1>
+        <img src="profil.jpg" alt="ERROR">
+        <h1>Name: <input type="text" id="userName" placeholder="Silahkan di isi"></h1>
+    </div>
+    
+    <div class="list">
+        <div class="todo">
+            <input type="text" id="todoInput" placeholder="Add a todo" onkeydown="if (event.keyCode === 13) addTodo()"> <!-- Call addTodo() when 'Enter' key is pressed -->
+            <input type="datetime-local" id="todoDate" name="tanggal">
+            <button type="button" onclick="addTodo()">Add</button>
+        </div>
+        <ul id="todoList">
+            <!-- Daftar to-do akan ditambahkan di sini -->
+        </ul>
+    </div>
+    
+</div>
+
+<script>
+    function addTodo() {
+    var todoInput = document.getElementById("todoInput").value;
+    var todoDate = document.getElementById("todoDate").value;
+    var userName = document.getElementById("userName").value;
+
+    if (todoInput === '') {
+        alert("Please enter a todo.");
+        return;
+    }
+
+    var todoItem = document.createElement("li");
+    todoItem.innerHTML = `<strong>${userName}:</strong> ${todoInput} - ${todoDate}`;
+    
+    // Tambahkan tombol hapus
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = function() {
+        todoItem.remove();
+    };
+    todoItem.appendChild(deleteButton);
+
+    document.getElementById("todoList").appendChild(todoItem);
+
+    // Reset input fields
+    document.getElementById("todoInput").value = '';
+    document.getElementById("todoDate").value = '';
+}
+</script>
+
+</body>
+</html>
